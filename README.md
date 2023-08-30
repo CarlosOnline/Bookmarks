@@ -2,11 +2,15 @@
 Also builds to Electron App.
 
 # Repository:
-Repository:     https://github.com/CarlosOnline/bookmarks
-Url:            https://gentle-grass-0b1856c03.2.azurestaticapps.net/#/
-Resource Group: bookmarks-rg
-App:            bookmarks-app
-Azure App:      https://portal.azure.com/#@cpgomeshotmail.onmicrosoft.com/resource/subscriptions/fab0d9c6-5b54-4c7e-b241-f2f77ecbe124/resourcegroups/bookmarks-rg/providers/Microsoft.Web/staticSites/bookmarks-swa/staticsite
+
+| Item      | Value |
+| ----------- | ----------- |
+| Repository:     | https://github.com/CarlosOnline/bookmarks |
+| Url:            | https://orange-pebble-0f131a91e.3.azurestaticapps.net |
+| Url:            | https://gentle-grass-0b1856c03.2.azurestaticapps.net/#/ |
+| Resource Group: | bookmarks-rg |
+| App:            | bookmarks-app |
+| Azure App:      | https://portal.azure.com/#@cpgomeshotmail.onmicrosoft.com/resource/subscriptions/fab0d9c6-5b54-4c7e-b241-f2f77ecbe124/resourcegroups/bookmarks-rg/providers/Microsoft.Web/staticSites/bookmarks-swa/staticsite |
 
 # How to
 1. Create Static Web App
