@@ -66,3 +66,7 @@ Create Azure App Service using Dev/Test Free F1 tier
 See [Configuration Reference](https://cli.vuejs.org/config/).
 "# cogswell"
 "# cogswell"
+
+## Trigger
+- Force release
+
