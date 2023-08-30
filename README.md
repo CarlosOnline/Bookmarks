@@ -2,21 +2,20 @@
 Also builds to Electron App.
 
 # Repository:
-Repository:     https://github.com/CarlosGomesCarlosOnline/bookmarks
+Repository:     https://github.com/CarlosOnline/bookmarks
 Url:            https://gentle-grass-0b1856c03.2.azurestaticapps.net/#/
-Resource Group: md-sb-bookmarks-rg
-App:            md-sb-bookmarks-app
-Azure App:      https://portal.azure.com/#@mareldigital.com/resource/subscriptions/a4168068-5051-4529-a67f-f363f912d0cf/resourcegroups/md-sb-bookmarks-rg/providers/Microsoft.Web/staticSites/md-sb-bookmarks-app/staticsite
+Resource Group: bookmarks-rg
+App:            bookmarks-app
+Azure App:      https://portal.azure.com/#@cpgomeshotmail.onmicrosoft.com/resource/subscriptions/fab0d9c6-5b54-4c7e-b241-f2f77ecbe124/resourcegroups/bookmarks-rg/providers/Microsoft.Web/staticSites/bookmarks-swa/staticsite
 
 # How to
 1. Create Static Web App
 2. Specify Other insteadh of Github, Azure Devops
-3. Create Statick web app
+3. Create Static web app
 4. Click `Manage deployment token`
-5. Update token under https://github.com/CarlosGomesCarlosOnline/bookmarks/settings/secrets/actions
+5. Update `AZURE_STATIC_WEB_APPS_API_DEPLOYMENT_TOKEN` token under https://github.com/CarlosOnline/Bookmarks/settings/secrets/actions
 
 - https://endjin.com/blog/2021/08/how-to-deploy-vue-app-to-azure-static-web-apps-using-azure-devops-and-yaml
-
 
 # TODO:
 - update favorite icon
@@ -66,7 +65,3 @@ Create Azure App Service using Dev/Test Free F1 tier
 See [Configuration Reference](https://cli.vuejs.org/config/).
 "# cogswell"
 "# cogswell"
-
-## Trigger
-- Force release
-
