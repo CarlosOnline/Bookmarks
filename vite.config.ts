@@ -2,44 +2,21 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import path from "path";
 
-const __filename = import.meta.url;
-const __dirname = path.dirname(__filename);
-const rootFolderPath = __dirname.replace("file:///", "");
-console.log("paths", __filename, __dirname, rootFolderPath);
-
-const githubMode = __dirname == "file:///github/workspace";
-if (githubMode) {
-  console.log(
-    "**** github action ****",
-    path.resolve(__dirname, "./src/services")
-  );
-}
-
-/**
- * Resolve path for npm run dev on windows, strip off funky stuff for windows.
- * Like file:///e:/Projects/Bookmarks/file:
- * Like file:///github/workspace/src/services/bookmarks/index.ts needs to map to /github/workspace/src/services/bookmarks/index.ts
- */
-function resolvePath(alias: string, folder: string) {
-  if (githubMode) {
-    return "/github/workspace/" + folder.replace("./", "");
-  }
-
-  const result = path.resolve(rootFolderPath, folder);
-  console.log(alias, folder, result);
-  return result;
-}
+// __dirname from url: https://github.com/nodejs/node/issues/28114#issuecomment-499977502
+import { fileURLToPath } from "url";
+const __dirname = fileURLToPath(path.dirname(import.meta.url));
+console.log("paths", __dirname, import.meta.url);
 
 // https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
     alias: {
-      "@": resolvePath("@", "./src"),
-      "@/services": resolvePath("@/services", "./src/services"),
-      "@/support": resolvePath("@/support", "./src/support"),
-      "@/components": resolvePath("@/components", "./src/components"),
-      "@/assets": resolvePath("@assets", "./src/assets"),
-      "@assets": resolvePath("@assets", "./src/assets"),
+      "@": path.resolve(__dirname, "./src"),
+      "@/services": path.resolve(__dirname, "./src/services"),
+      "@/support": path.resolve(__dirname, "./src/support"),
+      "@/components": path.resolve(__dirname, "./src/components"),
+      "@/assets": path.resolve(__dirname, "./src/assets"),
+      "@assets": path.resolve(__dirname, "./src/assets"),
     },
   },
   plugins: [vue()],
