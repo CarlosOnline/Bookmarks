@@ -9,10 +9,14 @@ const rootFolderPath = __dirname.replace("file:///", "");
 console.log("paths", __filename, __dirname, rootFolderPath);
 
 /**
- * Resolve path for windows, strip off funky stuff for windows.
+ * Resolve path for npm run dev on windows, strip off funky stuff for windows.
  * Like file:///e:/Projects/Bookmarks/file:
  */
-function resolvePath(alias: string, rootFolder: string, folder: string) {
+function resolvePath(alias: string, folder: string) {
+  if (__dirname == "file:///github/workspace") {
+    return path.resolve(__dirname, folder);
+  }
+
   const result = path.resolve(rootFolderPath, folder);
   console.log(alias, folder, result);
   return result;
@@ -22,16 +26,12 @@ function resolvePath(alias: string, rootFolder: string, folder: string) {
 export default defineConfig({
   resolve: {
     alias: {
-      "@": resolvePath("@", __dirname, "./src"),
-      "@/services": resolvePath("@/services", __dirname, "./src/services"),
-      "@/support": resolvePath("@/support", __dirname, "./src/support"),
-      "@/components": resolvePath(
-        "@/components",
-        __dirname,
-        "./src/components"
-      ),
-      "@/assets": resolvePath("@assets", __dirname, "./src/assets"),
-      "@assets": resolvePath("@assets", __dirname, "./src/assets"),
+      "@": resolvePath("@", "./src"),
+      "@/services": resolvePath("@/services", "./src/services"),
+      "@/support": resolvePath("@/support", "./src/support"),
+      "@/components": resolvePath("@/components", "./src/components"),
+      "@/assets": resolvePath("@assets", "./src/assets"),
+      "@assets": resolvePath("@assets", "./src/assets"),
     },
   },
   plugins: [vue(), tsconfigPaths()],
