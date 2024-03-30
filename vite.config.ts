@@ -1,6 +1,8 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import path from "path";
+
+// __dirname from url: https://github.com/nodejs/node/issues/28114#issuecomment-499977502
 import { fileURLToPath } from "url";
 const __dirname = fileURLToPath(path.dirname(import.meta.url));
 console.log("paths", __dirname, import.meta.url);
