@@ -223,7 +223,7 @@ export default class Browser {
   }
 
   static openUrl(url: string, target = "_blank") {
-    const win = window.open(url, target);
+    const win = window.open(url, target) as any;
     win.focus();
   }
 

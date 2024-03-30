@@ -1,20 +1,23 @@
-import Vue from "vue";
-import VueRouter, { RouteConfig } from "vue-router";
-import HomeComponent from "@/views/home/home.vue";
+import { createRouter, createWebHistory } from "vue-router";
 
-Vue.use(VueRouter);
+import BookmarksPage from "./components/bookmarks-page.vue";
+import ManageBookmarks from "./components/manage-bookmarks/manage-bookmarks.vue";
 
-const routes: Array<RouteConfig> = [
+const routes = [
   {
-    path: "/",
     name: "home",
-    component: HomeComponent,
+    path: "/",
+    component: BookmarksPage,
+  },
+  {
+    name: "manage-bookmarks",
+    path: "/manage",
+    component: ManageBookmarks,
   },
 ];
 
-const router = new VueRouter({
-  mode: "history",
-  base: process.env.BASE_URL,
+const router = createRouter({
+  history: createWebHistory(),
   routes,
 });
 

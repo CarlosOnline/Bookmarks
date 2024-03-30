@@ -1,109 +1,59 @@
-/**
- * Main entry point.
- */
-
-import DebugModule from "@/support/debug";
-/**
- * Initialize Debug before all other modules
- * */
+import DebugModule from "./support/debug";
 DebugModule.ensureCalled();
 
-import "bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { createApp, nextTick } from "vue";
 
-import { Env } from "@/support/environment";
-
-import Vue from "vue";
-Vue.config.productionTip = false;
-
-import VueJsModal from "vue-js-modal";
-Vue.use(VueJsModal);
-
-import VueAppInsights from "vue-application-insights";
-
-import VueSelect from "vue-select";
-import "vue-select/dist/vue-select.css";
-Vue.component("v-select", VueSelect);
-
-import Toast from "vue-toastification";
-import "vue-toastification/dist/index.css";
-const options = {
-  timeout: 3000,
-  closeButton: false,
-  position: "top-center",
-  hideProgressBar: true,
-};
-Vue.use(Toast, options);
-
-import VueTreeList from "vue-tree-list";
-Vue.use(VueTreeList);
-
-import { library } from "@fortawesome/fontawesome-svg-core";
-import {
-  faBars,
-  faBug,
-  faCog,
-  faEdit,
-  faExclamationTriangle,
-  faFileCsv,
-  faFileExcel,
-  faFileExport,
-  faFileImport,
-  faFolder,
-  faHome,
-  faLink,
-  faPlus,
-  faQuestion,
-  faRefresh,
-  faSave,
-  faShareSquare,
-  faSpinner,
-  faThumbtack,
-  faTrash,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-
-library.add(
-  faBars,
-  faBug,
-  faCog,
-  faEdit,
-  faExclamationTriangle,
-  faFileCsv,
-  faFileExcel,
-  faFileExport,
-  faFileImport,
-  faFolder,
-  faHome,
-  faLink,
-  faPlus,
-  faQuestion,
-  faRefresh,
-  faSave,
-  faShareSquare,
-  faSpinner,
-  faThumbtack,
-  faTrash
-);
-Vue.component("font-awesome-icon", FontAwesomeIcon);
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-Vue.use(VueAppInsights as any, {
-  id: Env.VUE_APP_APPINSIGHTS_INSTRUMENTATIONKEY,
-});
+import "bootstrap/dist/css/bootstrap.css";
+import "./style.css";
 
 import App from "./app.vue";
+const app = createApp(App);
+
+// Font awesome
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import unUsed from "./font-awesome.ts";
+unUsed;
+app.component("font-awesome-icon", FontAwesomeIcon);
+
+// Setup eventBus using mitt
+import mitt from "mitt";
+const eventBus = mitt();
+app.provide("eventBus", eventBus);
+
+// Setup vue-select
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
+app.component("v-select", vSelect);
+
+// Setup Tree View
+import "vue3-tree-vue/dist/style.css";
+import Vue3TreeVue from "vue3-tree-vue";
+app.component("vue3-tree-vue", Vue3TreeVue);
+
+// Setup router
 import router from "./router";
+app.use(router);
 
-new Vue({
-  router,
-  render: (h) => h(App),
-}).$mount("#app");
+// Setup modal
+import { createVfm } from "vue-final-modal";
+import "vue-final-modal/style.css";
+const vfm = createVfm();
+app.use(vfm);
 
-if (Env.LogEnvironment) {
-  console.log("Environment variables");
+// Setup toast
+import ToastPlugin from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-bootstrap.css";
+app.use(ToastPlugin);
 
-  for (const key in process.env) {
-    console.log(key, process.env[key]);
-  }
-}
+app.mount("#app");
+
+nextTick(() => {
+  postMessage({ payload: "removeLoading" }, "*");
+});
+
+console.log(
+  "main loaded",
+  import.meta.env.MODE,
+  import.meta.env.BASE_URL,
+  import.meta.env.VITE_APP_URL
+);

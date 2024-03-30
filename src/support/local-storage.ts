@@ -39,7 +39,7 @@ function parseValue(rawValue: string) {
   }
 }
 
-export default class LocalData {
+export class LocalData {
   public static SigninKey = "signin";
 
   static save(key: string, value: any) {
@@ -62,22 +62,21 @@ export default class LocalData {
     }
   }
 
-  static get(key: string, defaultValue: any = null): any {
+  static get<T>(key: string, defaultValue: T = <any>null): T {
     try {
       let value = window.localStorage.getItem(encode(key));
       //console.log('LocalData.get', encode(key), value, parseValue(decode(value)));
       if (value) {
         value = parseValue(decode(value));
-        if (value && value != "null") return value;
+        if (value && value != "null") return <T>value;
       }
-
-      return defaultValue;
     } catch (e) {
-      return null;
+      //ignored
     }
+    return defaultValue;
   }
 
-  static getString(key: string, defaultValue: string = null): string {
+  static getString(key: string, defaultValue: string = <any>null): string {
     try {
       let value = window.localStorage.getItem(encode(key));
       //console.log('LocalData.get', encode(key), value, parseValue(decode(value)));
@@ -85,11 +84,10 @@ export default class LocalData {
         value = decode(value);
         if (value && value != "null") return value;
       }
-
-      return defaultValue;
     } catch (e) {
-      return null;
+      // ignored
     }
+    return defaultValue;
   }
 
   static getInt(key: string, defaultValue = 0) {
@@ -97,9 +95,9 @@ export default class LocalData {
     const value = LocalData.get(key, defaultValue);
     if (value && value != undefined) {
       try {
-        return parseInt(parseValue(decode(value))) || defaultValue;
+        return parseInt(parseValue(decode(value as any))) || defaultValue;
       } catch (err) {
-        return defaultValue;
+        // ignored
       }
     }
     return defaultValue;
