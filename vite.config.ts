@@ -8,12 +8,17 @@ const __dirname = path.dirname(__filename);
 const rootFolderPath = __dirname.replace("file:///", "");
 console.log("paths", __filename, __dirname, rootFolderPath);
 
+const githubMode = __dirname == "file:///github/workspace";
+if (githubMode) {
+  console.log("**** github action ****");
+}
+
 /**
  * Resolve path for npm run dev on windows, strip off funky stuff for windows.
  * Like file:///e:/Projects/Bookmarks/file:
  */
 function resolvePath(alias: string, folder: string) {
-  if (__dirname == "file:///github/workspace") {
+  if (githubMode) {
     return path.resolve(__dirname, folder);
   }
 
