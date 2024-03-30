@@ -4,7 +4,7 @@ version: "3.4"
 services:
   bookmarks:
     container_name: bookmarks
-    image: marel.com/planning/bookmarks:latest
+    image: joyofplaying.com/planning/bookmarks:latest
     build:
       context: .
       dockerfile: ./DOCKERFILE

@@ -6,11 +6,6 @@ interface ObjectConstructor {
   assign<T>(target: any, source: T): T;
 }
 
-interface Modal extends Vue {
-  show(name?: string): void;
-  hide(name?: string): void;
-}
-
 interface DebugModule {
   debugMode: boolean;
   verboseMode: boolean;
