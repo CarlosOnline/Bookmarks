@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import tsconfigPaths from "vite-tsconfig-paths";
 import path from "path";
+import fs from "fs";
 
 const __filename = import.meta.url;
 const __dirname = path.dirname(__filename);
@@ -15,6 +15,15 @@ if (githubMode) {
     path.resolve(__dirname, "./src/services")
   );
 }
+
+function checkPath(filePath: string) {
+  const found = fs.existsSync(filePath);
+  console.log(found, filePath);
+}
+
+checkPath("file:///github/workspace/src/services/bookmarks/index.ts");
+checkPath("/github/workspace/src/services/bookmarks/index.ts");
+checkPath("file:/github/workspace/src/services/bookmarks/index.ts");
 
 /**
  * Resolve path for npm run dev on windows, strip off funky stuff for windows.
