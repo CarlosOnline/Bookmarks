@@ -19,7 +19,7 @@ if (githubMode) {
  */
 function resolvePath(alias: string, folder: string) {
   if (githubMode) {
-    return folder;
+    return "file:///github/workspace/" + folder;
   }
 
   const result = path.resolve(rootFolderPath, folder);
