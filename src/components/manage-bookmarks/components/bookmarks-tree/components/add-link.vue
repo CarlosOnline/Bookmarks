@@ -116,7 +116,7 @@ const save = () => {
     </div>
 </template>
 
-<style>
+<style scoped>
 .add-link-modal {
     margin: 2rem;
 

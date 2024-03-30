@@ -45,10 +45,6 @@ defineExpose({
     margin: 0.5rem 0;
 }
 
-.modal-container-content h1 {
-    font-size: 1.375rem;
-}
-
 .dark .modal-container-content {
     background: #000;
 }

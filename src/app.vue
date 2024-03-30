@@ -104,27 +104,8 @@ const importBookmarks = () => {
   <ModalsContainer />
 </template>
 
-<style>
+<style scoped>
 @import "./colors.css";
-
-html,
-body {
-  font-size: 12px;
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: var(--darkGray);
-  margin-left: 1rem;
-  margin-right: 1rem;
-}
-
-a {
-  color: var(--blue-highlight-color) !important;
-  text-decoration: none;
-}
 
 .app-container {
   .header {
@@ -137,23 +118,14 @@ a {
 
     color: var(--primary) !important;
 
+    .logo {
+      button {
+        padding: 0;
+      }
+    }
+
     .header-buttons {
       display: flex;
-    }
-
-    .logo {}
-
-    h1,
-    h2,
-    h3 {
-      margin: 0;
-    }
-
-    button {
-      display: flex;
-      justify-self: flex-end;
-      align-items: center;
-      color: var(--primary);
     }
 
     .token-error {
@@ -172,12 +144,5 @@ a {
     grid-template-rows: auto;
     grid-row-gap: 1rem;
   }
-}
-
-#home {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: var(--darkGray);
 }
 </style>
