@@ -10,7 +10,10 @@ console.log("paths", __filename, __dirname, rootFolderPath);
 
 const githubMode = __dirname == "file:///github/workspace";
 if (githubMode) {
-  console.log("**** github action ****");
+  console.log(
+    "**** github action ****",
+    path.resolve(__dirname, "./src/services")
+  );
 }
 
 /**
