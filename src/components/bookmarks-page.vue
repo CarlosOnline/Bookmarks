@@ -87,17 +87,6 @@ const filterLinks = (links: Link[], search: string) => {
 
 <style scoped>
 .bookmarks-page {
-
-    h1,
-    h2,
-    h3,
-    h4 {
-        color: #0072c6;
-        font-family: "Segoe UI Light", "Segoe UI", "Segoe", Tahoma, Helvetica, Arial,
-            sans-serif;
-        margin: 0;
-    }
-
     .link-wrapper {
         display: flex;
         flex-wrap: wrap;

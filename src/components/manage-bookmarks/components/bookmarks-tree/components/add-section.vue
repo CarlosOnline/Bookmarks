@@ -99,7 +99,7 @@ const save = () => {
     </div>
 </template>
 
-<style>
+<style scoped>
 .add-section-modal {
     margin: 2rem;
 

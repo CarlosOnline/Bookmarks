@@ -1,12 +1,10 @@
+@import "./colors.css";
+
 :root {
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-html {
-  font-size: 12px;
 }
 
 body {
@@ -22,4 +20,45 @@ body {
 
 p {
   line-height: 1;
+}
+
+html,
+body {
+  font-size: 16px;
+  margin-top: 0.15rem;
+  margin-bottom: 1rem;
+  margin-left: 0.5rem;
+  margin-right: 1rem;
+  width: 100%;
+  height: 100%;
+  font-family: "Segoe UI Light", "Segoe UI", "Segoe", Tahoma, Helvetica, Arial,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: #0072c6 !important;
+  text-decoration: none;
+}
+
+.btn-link {
+  color: #0072c6 !important;
+  text-decoration: none;
+  font-weight: normal !important;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: #0072c6;
+  margin: 0;
+}
+
+button {
+  display: flex;
+  justify-self: flex-end;
+  align-items: center;
+  color: var(--primary);
 }

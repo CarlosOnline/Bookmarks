@@ -175,10 +175,10 @@ const onSectionDragged = (droppedItem: TreeViewItem, dropHost: TreeViewItem) => 
     display: grid;
     grid-template-columns: auto auto 1fr;
     grid-column-gap: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
 
     .btn {
-        font-size: 1.25rem;
+        font-size: 1.5rem;
     }
 }
 </style>./components/instructions.vue

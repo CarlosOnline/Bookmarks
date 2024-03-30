@@ -29,15 +29,5 @@ const color = computed(() => getBookmarkBackgroundColor(props.section, null));
 .section-viewer {
     width: 11rem;
     border-radius: 0.5rem;
-
-    h1,
-    h2,
-    h3,
-    h4 {
-        color: #0072c6;
-        font-family: "Segoe UI Light", "Segoe UI", "Segoe", Tahoma, Helvetica, Arial,
-            sans-serif;
-        margin: 0;
-    }
 }
 </style>
