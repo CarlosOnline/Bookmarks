@@ -42,5 +42,5 @@ export default defineConfig({
       "@assets": resolvePath("@assets", "./src/assets"),
     },
   },
-  plugins: [vue(), tsconfigPaths()],
+  plugins: [vue()],
 });

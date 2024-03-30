@@ -9,8 +9,6 @@
     /* other checks */
     "strictNullChecks": false,
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
     "sourceMap": true,
 
     /* Bundler mode */
