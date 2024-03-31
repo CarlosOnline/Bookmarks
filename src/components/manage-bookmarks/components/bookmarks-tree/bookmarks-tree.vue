@@ -133,10 +133,14 @@ const onSectionDragged = (droppedItem: TreeViewItem, dropHost: TreeViewItem) => 
     </Teleport>
 
     <div class="header">
-        <button class="btn btn-link" @click="instructionsModal.show">Instructions</button>
+        <button class="btn btn-link header-button" @click="addModal.show" title="Add Section">
+            <font-awesome-icon icon="plus" size="1x" />
+            <span>Add Section</span>
+        </button>
 
-        <button class="btn btn-link" @click="addModal.show" title="Add Section">
-            Add Section
+        <button class="btn btn-link header-button" @click="instructionsModal.show">
+            <font-awesome-icon icon="question" size="1x" />
+            <span>Instructions</span>
         </button>
 
         <span />
@@ -174,11 +178,21 @@ const onSectionDragged = (droppedItem: TreeViewItem, dropHost: TreeViewItem) => 
 .header {
     display: grid;
     grid-template-columns: auto auto 1fr;
-    grid-column-gap: 1rem;
+    grid-column-gap: 15rem;
+    margin: 0;
     margin-bottom: 0.5rem;
 
     .btn {
         font-size: 1.5rem;
+    }
+
+    .header-button {
+        color: gray !important;
+
+        span {
+            font-weight: bolder !important;
+            margin-left: 0.5rem;
+        }
     }
 }
 </style>./components/instructions.vue

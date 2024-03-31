@@ -18,6 +18,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.6",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
+    "color-util": "^2.2.3",
     "dexie": "^3.2.7",
     "fuse.js": "^7.0.0",
     "lodash": "^4.17.21",

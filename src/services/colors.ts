@@ -1,3 +1,6 @@
+import { orderBy } from "lodash";
+import colorutil from "color-util";
+
 import { Link, Section } from "./bookmarks";
 
 export interface ColorInfo {
@@ -7,82 +10,67 @@ export interface ColorInfo {
 }
 
 export const BookmarkColors: Record<string, ColorInfo> = {
-  classicBlue: { backgroundColor: "#34568B", color: "white" },
-  livingCoral: { backgroundColor: "#FF6F61", color: "white" },
-  ultraViolet: { backgroundColor: "#6B5B95", color: "white" },
-  greenery: { backgroundColor: "#88B04B", color: "white" },
-  roseQuartz: { backgroundColor: "#F7CAC9", color: "black" },
-  serenity: { backgroundColor: "#92A8D1", color: "black" },
-  marsala: { backgroundColor: "#955251", color: "white" },
-  radiandOrchid: { backgroundColor: "#B565A7", color: "white" },
-  emerald: { backgroundColor: "#009B77", color: "white" },
-  tangerineTango: { backgroundColor: "#DD4124", color: "white" },
-  honeySuckle: { backgroundColor: "#D65076", color: "white" },
-  turquoise: { backgroundColor: "#45B8AC", color: "white" },
-  mimosa: { backgroundColor: "#EFC050", color: "white" },
-  blueIzis: { backgroundColor: "#5B5EA6", color: "white" },
-  chiliPepper: { backgroundColor: "#9B2335", color: "white" },
-  sandDollar: { backgroundColor: "#DFCFBE", color: "black" },
-  blueTurquoise: { backgroundColor: "#55B4B0", color: "black" },
-  tigerLily: { backgroundColor: "#E15D44", color: "black" },
-  aquaSky: { backgroundColor: "#7FCDCD", color: "black" },
-  trueRed: { backgroundColor: "#BC243C", color: "white" },
-  fuchsiaRose: { backgroundColor: "#C3447A", color: "white" },
-  ceruleanBlue: { backgroundColor: "#98B4D4", color: "black" },
-  marigold: { backgroundColor: "#fdac53", color: "black" },
-  cerulean: { backgroundColor: "#9bb7d4", color: "black" },
-  rust: { backgroundColor: "#b55a30", color: "black" },
-  illuminating: { backgroundColor: "#f5df4d", color: "black" },
-  frenchBlue: { backgroundColor: "#0072b5", color: "white" },
-  greenAsh: { backgroundColor: "#a0daa9", color: "black" },
-  burntCoral: { backgroundColor: "#e9897e", color: "white" },
-  mint: { backgroundColor: "#00a170", color: "white" },
-  amethystOrchid: { backgroundColor: "#926aa6", color: "white" },
-  raspberrySorbet: { backgroundColor: "#d2386c", color: "white" },
-  flameScarlet: { backgroundColor: "#CD212A", color: "white" },
-  saffron: { backgroundColor: "#FFA500", color: "black" },
-  biscayGreen: { backgroundColor: "#56C6A9", color: "black" },
-  chive: { backgroundColor: "#4B5335", color: "white" },
-  fadedDenim: { backgroundColor: "#798EA4", color: "white" },
-  orangePeel: { backgroundColor: "#FA7A35", color: "white" },
-  mosaicBlue: { backgroundColor: "#00758F", color: "white" },
-  sunlight: { backgroundColor: "#EDD59E", color: "black" },
-  coralPink: { backgroundColor: "#E8A798", color: "black" },
-  cinnamonStick: { backgroundColor: "#9C4722", color: "white" },
-  grapeCompote: { backgroundColor: "#6B5876", color: "white" },
-  lark: { backgroundColor: "#B89B72", color: "white" },
-  navyBlazer: { backgroundColor: "#282D3C", color: "white" },
-  brilliantWhite: { backgroundColor: "#EDF1FF", color: "black" },
-  ash: { backgroundColor: "#A09998", color: "white" },
-  amberglow: { backgroundColor: "#DC793E", color: "white" },
-  samba: { backgroundColor: "#A2242F", color: "white" },
-  sandstone: { backgroundColor: "#C48A69", color: "white" },
-  greenSheen: { backgroundColor: "#D9CE52", color: "black" },
-  roseTan: { backgroundColor: "#D19C97", color: "black" },
   ultramarineGreen: { backgroundColor: "#006B54", color: "white" },
-  firedBrick: { backgroundColor: "#6A2E2A", color: "white" },
-  peachNougat: { backgroundColor: "#E6AF91", color: "black" },
-  magentaPurple: { backgroundColor: "#6C244C", color: "white" },
-  darkGray: { backgroundColor: "#2c3e50", color: "white" },
+  frenchBlue: { backgroundColor: "#0072b5", color: "white" },
+  mosaicBlue: { backgroundColor: "#00758F", color: "white" },
   blue: { backgroundColor: "#007bff", color: "white" },
-  indigo: { backgroundColor: "#6610f2", color: "white" },
-  purple: { backgroundColor: "#6f42c1", color: "white" },
-  pink: { backgroundColor: "#e83e8c", color: "white" },
-  red: { backgroundColor: "#dc3545", color: "white" },
-  orange: { backgroundColor: "#fd7e14", color: "black" },
-  yellow: { backgroundColor: "#ffc107", color: "black" },
+  mint: { backgroundColor: "#00a170", color: "white" },
   green: { backgroundColor: "#28a745", color: "white" },
-  teal: { backgroundColor: "#20c997", color: "black" },
-  cyan: { backgroundColor: "#17a2b8", color: "black" },
-  gray: { backgroundColor: "#6c757d", color: "white" },
-  "gray-dark": { backgroundColor: "#343a40", color: "white" },
+  darkGray: { backgroundColor: "#2c3e50", color: "white" },
+  blackGray: { backgroundColor: "#343a40", color: "white" },
+  classicBlue: { backgroundColor: "#34568B", color: "white" },
   primary: { backgroundColor: "#428bca", color: "white" },
+  turquoise: { backgroundColor: "#45B8AC", color: "white" },
+  blueIzis: { backgroundColor: "#5B5EA6", color: "white" },
+  indigo: { backgroundColor: "#6610f2", color: "white" },
+  firedBrick: { backgroundColor: "#6A2E2A", color: "white" },
+  magentaPurple: { backgroundColor: "#6C244C", color: "white" },
   secondary: { backgroundColor: "#6c757d", color: "white" },
-  success: { backgroundColor: "#28a745", color: "white" },
-  info: { backgroundColor: "#17a2b8", color: "black" },
-  warning: { backgroundColor: "#ffc107", color: "black" },
-  danger: { backgroundColor: "#dc3545", color: "white" },
+  chiliPepper: { backgroundColor: "#9B2335", color: "white" },
+  trueRed: { backgroundColor: "#BC243C", color: "white" },
+  tangerineTango: { backgroundColor: "#DD4124", color: "white" },
+  pink: { backgroundColor: "#e83e8c", color: "white" },
+  orangePeel: { backgroundColor: "#FA7A35", color: "white" },
+  livingCoral: { backgroundColor: "#FF6F61", color: "white" },
+  saffron: { backgroundColor: "#FFA500", color: "black" },
 };
+
+type Rgba = {
+  r: number;
+  g: number;
+  b: number;
+  a: number;
+};
+
+export type ColorInfoElement = {
+  name: string;
+  rgba: Rgba;
+  backgroundColor: string;
+  color: string;
+};
+
+const BookmarkColorInfoArray = Object.keys(BookmarkColors).map((key) => {
+  return {
+    name: key,
+    backgroundColor: BookmarkColors[key].backgroundColor,
+    color: BookmarkColors[key].color,
+    rgba: colorutil.hex.to.rgb(BookmarkColors[key].backgroundColor),
+  };
+});
+
+function sortColors(colors: ColorInfoElement[]): ColorInfoElement[] {
+  return orderBy(colors, [
+    "rgba.a",
+    "rgba.r",
+    "rgba.g",
+    "rgba.b",
+    "backgroundColor",
+    "color",
+    "name",
+  ]);
+}
+
+export const SortedBookmarkColors = sortColors(BookmarkColorInfoArray);
 
 export const DefaultColorName = "primary";
 export const DefaultColor = BookmarkColors[DefaultColorName];
@@ -101,3 +89,5 @@ export function getBookmarkBackgroundColor(
     DefaultColor.backgroundColor
   );
 }
+
+Debug.setDebugModule("bookmarkColors", BookmarkColors);

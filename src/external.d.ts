@@ -23,3 +23,4 @@ declare let Debug: DebugModule;
 declare module "vue-select";
 declare module "vue-tree-list";
 declare module "uuid";
+declare module "color-util";

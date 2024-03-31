@@ -17,7 +17,6 @@ const resetLinks = () => {
             <BookmarksTree />
         </div>
 
-
         <div class="footer">
             <span />
             <button class="btn btn-default" type="submit" @click="resetRecentLinks">Reset Recent Links</button>
@@ -31,7 +30,7 @@ const resetLinks = () => {
 </template>
 <style scoped>
 .manage-bookmarks {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     display: flex;
     flex-direction: column;
     gap: 2rem;
