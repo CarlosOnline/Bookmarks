@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import BookmarksPage from "./components/bookmarks-page.vue";
 import ManageBookmarks from "./components/manage-bookmarks/manage-bookmarks.vue";
+import ColorsPage from "./components/colors.vue";
 
 const routes = [
   {
@@ -13,6 +14,11 @@ const routes = [
     name: "manage-bookmarks",
     path: "/manage",
     component: ManageBookmarks,
+  },
+  {
+    name: "colors",
+    path: "/colors",
+    component: ColorsPage,
   },
 ];
 
