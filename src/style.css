@@ -48,6 +48,10 @@ a {
   font-weight: normal !important;
 }
 
+.btn-default {
+  border-color: gainsboro;
+}
+
 h1,
 h2,
 h3,

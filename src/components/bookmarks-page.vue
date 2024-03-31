@@ -63,7 +63,6 @@ const filterLinks = (links: Link[], search: string) => {
         <div v-if="showRecentLinks" class="recent-bookmarks-page">
             <h3>Recent Links</h3>
             <div class="link-wrapper">
-                <!--TODO: Create recentLinks section -->
                 <template v-for="link in recentLinks" :key="'recent-links-link-' + link.id">
                     <div class="link-container">
                         <LinkViewer :link="link" />
@@ -75,7 +74,7 @@ const filterLinks = (links: Link[], search: string) => {
         <template v-for="section in bookmarks" :key="'section-fragment' + section.id">
             <SectionViewer :section="section" />
             <div class="link-wrapper">
-                <template v-for="link in section.children" :key="'section-' + sectionIdx + '-link-' + link.id">
+                <template v-for="link in section.children" :key="'section-' + section.id + '-link-' + link.id">
                     <div class="link-container">
                         <LinkViewer :link="link" :section="section" />
                     </div>

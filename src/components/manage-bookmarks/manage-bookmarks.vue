@@ -1,27 +1,45 @@
 <script setup lang="ts">
-import BookmarksTree from './components/bookmarks-tree/bookmarks-tree.vue'
+import { $bookmarksStore } from '@/services/bookmarks';
+import BookmarksTree from './components/bookmarks-tree/bookmarks-tree.vue';
 
-const close = () => {
-    document.location.href = "/";
+const resetRecentLinks = () => {
+    $bookmarksStore.resetRecentLinks();
 };
+
+const resetLinks = () => {
+    $bookmarksStore.resetLinks();
+};
+
 </script>
 <template>
-    <div class="bookmarks-editor">
+    <div class="manage-bookmarks">
         <div class="editor-column">
             <BookmarksTree />
         </div>
 
 
         <div class="footer">
-            <button class="btn btn-primary" type="submit" @click="close">Done</button>
+            <span />
+            <button class="btn btn-default" type="submit" @click="resetRecentLinks">Reset Recent Links</button>
+            <button class="btn btn-default" type="submit" @click="resetLinks">Reset Colors</button>
+            <router-link to="/">
+                <button class="btn btn-primary" type="submit">Done</button>
+            </router-link>
+            <span />
         </div>
     </div>
 </template>
 <style scoped>
-.bookmarks-editor {
+.manage-bookmarks {
     margin-top: 1rem;
     display: flex;
     flex-direction: column;
     gap: 2rem;
+
+    .footer {
+        display: grid;
+        grid-template-columns: 20rem auto auto auto 1fr;
+        grid-column-gap: 1rem;
+    }
 }
 </style>

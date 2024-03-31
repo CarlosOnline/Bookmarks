@@ -48,8 +48,6 @@ const importBookmarks = () => {
       contents as string
     );
 
-    console.log(result, message)
-
     const toaster = useToast();
     if (result) {
       toaster.success("Imported bookmarks");

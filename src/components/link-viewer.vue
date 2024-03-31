@@ -15,7 +15,8 @@ const color = computed(() => getBookmarkColor(props.section, props.link));
 const onClick = () => {
     const linkInfo = $bookmarksStore.findLinkById(props.link.id);
 
-    linkInfo.link.timestamp = new Date();
+    const now = new Date();
+    linkInfo.link.timestamp = now.getTime();
 
     if (!linkInfo.link.clickCount) {
         linkInfo.link.clickCount = 0;

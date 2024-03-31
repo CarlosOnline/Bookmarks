@@ -22,7 +22,10 @@ const showUrlError = ref(false);
 
 const name = ref<string>(props.link.name || "")
 const href = ref<string>(props.link.href || "")
-const color = ref<ColorInfo>(DefaultColor);
+const color = ref<ColorInfo>({
+    backgroundColor: props.link.backgroundColor,
+    color: props.link.color,
+});
 const model = ref<Link>(props.link);
 
 const title = ref<string>(props.editMode ? "Edit Bookmark" : "Add Bookmark");
