@@ -6,7 +6,8 @@ import { Link, Section, Bookmark, LinkInfo, DefaultLink } from ".";
 import { LocalData } from "../../support/local-storage";
 import { DefaultColor } from "../colors";
 
-const MinDate = new Date(-8640000000000000);
+export const MinDate = new Date(-8640000000000000);
+export const MinTimeStamp = MinDate.getTime();
 const RecentCount: number = LocalData.get("recent-count", 5);
 
 function normalizeSection(section: Bookmark) {
@@ -37,7 +38,7 @@ function normalizeLink(link: Link, section: Bookmark) {
   }
 
   if (link.clickCount && !link.timestamp) {
-    link.timestamp = MinDate;
+    link.timestamp = MinTimeStamp;
   }
 
   link.name = link.name?.trim();
@@ -78,10 +79,7 @@ export function replaceDuplicatesForLink(link: Link, linkInfos: LinkInfo[]) {
   });
 }
 
-export function cleanDataSections(
-  sections: Section[],
-  removable: string[] = ["id", "timestamp", "tags"]
-) {
+export function cleanDataSections(sections: Section[], removable: string[]) {
   sections = <Section[]>JSON.parse(JSON.stringify(sections));
   if (sections.length == 0) sections;
 
@@ -127,10 +125,11 @@ export class SectionsHolder {
 
   get recentBookmarks() {
     const links = this.links.filter((item) => item.clickCount);
-    return orderBy(links, ["clickCount", "timestamp"], ["desc", "desc"]).slice(
-      0,
-      RecentCount
-    );
+    return orderBy(
+      links,
+      ["clickCount", "timestamp", "name"],
+      ["desc", "desc", "asc"]
+    ).slice(0, RecentCount);
   }
 
   public findSection(section: Bookmark) {
@@ -289,7 +288,13 @@ export class SectionsHolder {
     const section = this.findSection(parent);
     const link = this.findLink(section, child);
 
-    Debug.log("updateLink", link.name, link.id);
+    Debug.log(
+      "updateLink",
+      link.name,
+      link.id,
+      link.clickCount,
+      link.timestamp?.toLocaleString()
+    );
 
     link.backgroundColor = child.backgroundColor?.trim();
     link.color = child.color?.trim();
@@ -298,7 +303,8 @@ export class SectionsHolder {
     link.timestamp = child.timestamp;
 
     if (link.clickCount && !link.timestamp) {
-      link.timestamp = MinDate;
+      link.timestamp = MinTimeStamp;
+      console.error("reset timestamp for", link, child);
     }
 
     this.replaceDuplicateLink(link, this.sections);
@@ -328,10 +334,6 @@ export class SectionsHolder {
     });
 
     return results;
-  }
-
-  public cleanData() {
-    return cleanDataSections(this.sections);
   }
 
   private replaceDuplicateLink(link: Link, sections: Section[]) {

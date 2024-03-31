@@ -1,8 +1,10 @@
+import { MinTimeStamp } from "../sections-holder";
+
 export interface Bookmark {
   name: string;
   backgroundColor: string;
   color: string;
-  timestamp: Date;
+  timestamp: number;
   id: string;
 }
 
@@ -11,5 +13,5 @@ export const DefaultBookmark: Bookmark = {
   id: "",
   backgroundColor: "",
   color: "",
-  timestamp: new Date(),
+  timestamp: MinTimeStamp,
 };

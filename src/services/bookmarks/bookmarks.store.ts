@@ -6,6 +6,7 @@ import { Link, Section } from ".";
 import { LocalData } from "../../support/local-storage";
 import { DefaultBookmarks } from "./default-bookmarks";
 import {
+  MinTimeStamp,
   SectionsHolder,
   cleanDataSections,
   normalizeData,
@@ -123,13 +124,12 @@ class BookmarksStore {
 
   public export() {
     normalizeData(this.sections);
-    const sections = cleanDataSections(
-      cleanDataSections(this.sections, ["id", "timestamp"])
-    );
+    const sections = cleanDataSections(this.sections, ["id", "tags"]);
     return sections;
   }
 
   public diagnostic() {
+    console.log(JSON.stringify(this.recentBookmarks, null, 3));
     console.log(JSON.stringify(this.sections, null, 3));
   }
 
@@ -149,7 +149,6 @@ class BookmarksStore {
 
   public importFromJson(json: string): [boolean, string] {
     try {
-      console.log(json);
       const sections = JSON.parse(json);
       if (!sections.length) {
         return [false, "No bookmarks found"];
@@ -162,6 +161,31 @@ class BookmarksStore {
     } catch (err) {
       return [false, "Failed to parse bookmarks " + err];
     }
+  }
+
+  public resetRecentLinks() {
+    this.sections.forEach((section) => {
+      section.children.forEach((link) => {
+        link.timestamp = MinTimeStamp;
+        link.clickCount = 0;
+      });
+    });
+
+    this.saveSections();
+  }
+
+  public resetLinks() {
+    this.sections.forEach((section) => {
+      section.backgroundColor = "";
+      section.color = "";
+
+      section.children.forEach((link) => {
+        link.backgroundColor = "";
+        link.color = "";
+      });
+    });
+
+    this.saveSections();
   }
 
   private loadBookmarks(sections: Section[]) {
@@ -208,9 +232,7 @@ class BookmarksStore {
 
   private saveSections() {
     normalizeData(this.sections);
-    const sections = cleanDataSections(
-      cleanDataSections(this.sections, ["tags"])
-    );
+    const sections = cleanDataSections(this.sections, ["id", "tags"]);
 
     LocalData.save(BookmarksKey, JSON.stringify(sections));
     this.state.value.refreshCount++;
