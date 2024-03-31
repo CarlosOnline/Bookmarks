@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { v4 as uuidv4 } from "uuid";
-import { ref, toValue } from "vue";
+import { ref } from "vue";
 
 import { Link, MinTimeStamp, Section } from ".";
 import { LocalData } from "../../support/local-storage";
