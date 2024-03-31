@@ -2,16 +2,9 @@
 import { v4 as uuidv4 } from "uuid";
 import { ref } from "vue";
 
-import { Link, Section } from ".";
+import { Link, MinTimeStamp, Section } from ".";
 import { LocalData } from "../../support/local-storage";
 import { DefaultBookmarks } from "./default-bookmarks";
-import {
-  MinTimeStamp,
-  SectionsHolder,
-  cleanDataSections,
-  normalizeData,
-  replaceDuplicatesForLink,
-} from "./sections-holder";
 
 interface BookmarksState {
   refreshCount: number;
@@ -21,8 +14,6 @@ interface BookmarksState {
 const BookmarksKey = "bookmarks";
 
 class BookmarksStore {
-  private sectionsHolder: SectionsHolder;
-
   private state = ref<BookmarksState>({
     refreshCount: 0,
     sections: [],
@@ -37,60 +28,59 @@ class BookmarksStore {
   }
 
   get links() {
-    return this.sectionsHolder.links;
+    return this.sections.links();
   }
 
   get linkInfos() {
-    return this.sectionsHolder.getLinkInfos(this.sections);
+    return this.sections.getLinkInfos();
   }
 
   get recentBookmarks() {
-    return this.sectionsHolder.recentBookmarks;
+    return this.sections.recentBookmarks();
   }
 
   constructor() {
-    this.sectionsHolder = new SectionsHolder(this.state.value.sections);
     this.load();
   }
 
   public addToSection(newLink: Link, parent: Section) {
-    const result = this.sectionsHolder.addToSection(newLink, parent);
+    const result = this.sections.addToSection(newLink, parent);
     this.saveSections();
     return result;
   }
 
   public append(newLink: Link, parent: Section) {
-    const result = this.sectionsHolder.append(newLink, parent);
+    const result = this.sections.append(newLink, parent);
     this.saveSections();
     return result;
   }
 
   public findLinkById(id: string) {
-    return this.sectionsHolder.findLinkById(id);
+    return this.sections.findLinkInfoById(id);
   }
 
   public insertAfter(newLink: Link, parent: Section, child: Link) {
-    this.sectionsHolder.insertAfter(newLink, parent, child);
+    this.sections.insertAfter(newLink, parent, child);
     this.saveSections();
   }
 
   public insertBefore(newLink: Link, parent: Section, child: Link) {
-    this.sectionsHolder.insertBefore(newLink, parent, child);
+    this.sections.insertBefore(newLink, parent, child);
     this.saveSections();
   }
 
   public insertSectionAfter(newSection: Section, parent: Section) {
-    this.sectionsHolder.insertSectionAfter(newSection, parent);
+    this.sections.insertSectionAfter(newSection, parent);
     this.saveSections();
   }
 
   public insertSectionBefore(newSection: Section, parent: Section) {
-    this.sectionsHolder.insertSectionBefore(newSection, parent);
+    this.sections.insertSectionBefore(newSection, parent);
     this.saveSections();
   }
 
   public removeLink(parent: Section, child: Link, save = true) {
-    this.sectionsHolder.removeLink(parent, child);
+    this.sections.removeLink(parent, child);
 
     if (save) {
       this.saveSections();
@@ -98,7 +88,7 @@ class BookmarksStore {
   }
 
   public removeSection(section: Section, save = true) {
-    this.sectionsHolder.removeSection(section);
+    this.sections.removeSection(section);
 
     if (save) {
       this.saveSections();
@@ -106,12 +96,12 @@ class BookmarksStore {
   }
 
   public updateLink(parent: Section, child: Link) {
-    this.sectionsHolder.updateLink(parent, child);
+    this.sections.updateLink(parent, child);
     this.saveSections();
   }
 
   public updateSection(section: Section) {
-    this.sectionsHolder.updateSection(section);
+    this.sections.updateSection(section);
     this.saveSections();
   }
 
@@ -123,19 +113,29 @@ class BookmarksStore {
   }
 
   public export() {
-    normalizeData(this.sections);
-    const sections = cleanDataSections(this.sections, ["id", "tags"]);
+    this.sections.sanitizeSections();
+    const sections = this.sections.removeMembers(["id", "tags"]);
     return sections;
   }
 
-  public diagnostic() {
-    console.log(JSON.stringify(this.recentBookmarks, null, 3));
-    console.log(JSON.stringify(this.sections, null, 3));
-  }
+  public diagnostic(type?: string) {
+    switch (type || "") {
+      case "load": {
+        const sections = LocalData.get<any[]>(BookmarksKey, <any>null);
+        console.log(JSON.stringify(sections, null, 3));
+        break;
+      }
 
-  public loadDiagnostic() {
-    const sections = LocalData.get<Section[]>(BookmarksKey, <any>null);
-    console.log(JSON.stringify(sections, null, 3));
+      case "recent": {
+        console.log(JSON.stringify(this.recentBookmarks, null, 3));
+        break;
+      }
+
+      default: {
+        console.log(JSON.stringify(this.sections, null, 3));
+        break;
+      }
+    }
   }
 
   private load() {
@@ -189,7 +189,7 @@ class BookmarksStore {
   }
 
   private loadBookmarks(sections: Section[]) {
-    normalizeData(sections);
+    sections.ensureSectionMembers();
 
     this.replaceDuplicateLinks(sections);
 
@@ -220,19 +220,27 @@ class BookmarksStore {
   }
 
   private replaceDuplicateLinks(sections: Section[]) {
-    const linkInfos = this.sectionsHolder.getLinkInfos(sections);
+    const linkInfos = sections.getLinkInfos();
     while (linkInfos.length > 0) {
       const info = linkInfos[0];
       linkInfos.splice(0, 1);
 
       const link = info.link;
-      replaceDuplicatesForLink(link, linkInfos);
+      sections.replaceDuplicatesForLinkWithLinkInfos(link, linkInfos);
     }
   }
 
   private saveSections() {
-    normalizeData(this.sections);
-    const sections = cleanDataSections(this.sections, ["id", "tags"]);
+    let sections = this.sections.map((item) => {
+      const section: Section = { ...item };
+      section.children = section.children.map((child) => {
+        return { ...child } as Link;
+      });
+      return section;
+    });
+
+    sections.sanitizeSections();
+    sections = sections.removeMembers(["id", "tags"]);
 
     LocalData.save(BookmarksKey, JSON.stringify(sections));
     this.state.value.refreshCount++;

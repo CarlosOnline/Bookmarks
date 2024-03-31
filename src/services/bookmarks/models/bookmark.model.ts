@@ -1,4 +1,5 @@
-import { MinTimeStamp } from "../sections-holder";
+export const MinDate = new Date(-8640000000000000);
+export const MinTimeStamp = MinDate.getTime();
 
 export interface Bookmark {
   name: string;
