@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeMount, onMounted, ref, watch } from 'vue';
 import { Link, Section } from '@/services/bookmarks';
-import { ColorInfo, DefaultColor } from '@/services/colors';
+import { ColorInfo } from '@/services/colors';
 import ColorPicker from "../../color-picker.vue";
 
 const props = defineProps<{
