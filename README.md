@@ -1,5 +1,6 @@
 # Bookmarks application
-Also builds to Electron App.
+Bookmarks application for managing browser bookmarks.  
+Created by [Carlos Gomes](mailto:carlos.bear@gmail.com).
 
 # Repository:
 
