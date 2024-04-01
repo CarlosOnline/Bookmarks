@@ -21,9 +21,9 @@ const eventBus = mitt();
 app.provide("eventBus", eventBus);
 
 // Setup vue-select
-import vSelect from "vue-select";
+import VueSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
-app.component("v-select", vSelect);
+app.component("v-select", VueSelect);
 
 // Setup Tree View
 import "vue3-tree-vue/dist/style.css";

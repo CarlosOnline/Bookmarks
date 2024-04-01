@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue';
 import { v4 as uuidv4 } from "uuid";
 
-import { $bookmarksStore, DefaultLink, DefaultSection, Link, Section } from '@/services/bookmarks';
+import { $bookmarksStore, DefaultLink, DefaultSection, Link, Section, ensureLinkMembers, ensureSectionMembers } from '@/services/bookmarks';
 import SectionNode from './components/section-node.vue';
 import LinkNode from './components/link-node.vue';
 import Modal from '@/components/modal.vue';
@@ -48,7 +48,11 @@ const onLinkAdded = (section: Section, link: Link) => {
 }
 
 const onSectionAdded = (newSection: Section) => {
+    ensureSectionMembers(newSection);
+
     const link = { ...DefaultLink, name: "New Bookmark" }
+    ensureLinkMembers(link);
+
     newSection.children.push(link);
     $bookmarksStore.insertSectionAfter(newSection, $bookmarksStore.sections[$bookmarksStore.sections.length - 1]);
     section.value = { ...DefaultSection };
