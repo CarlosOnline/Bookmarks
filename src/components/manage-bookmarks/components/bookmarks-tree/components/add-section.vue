@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeMount, onMounted, ref, watch } from 'vue';
-import { Section } from '@/services//bookmarks';
+
+import { Section, ensureSectionMembers } from '@/services//bookmarks';
 import { ColorInfo, DefaultColor } from '@/services/colors';
 import ColorPicker from "../../color-picker.vue";
 
@@ -18,6 +19,8 @@ const previousSection = ref<Section>();
 
 const showNameError = ref(false);
 
+const nameInput = ref(<any>null);
+
 const name = ref<string>(props.section.name || "")
 const color = ref<ColorInfo>(DefaultColor);
 const model = ref<Section>(props.section);
@@ -34,6 +37,8 @@ onBeforeMount(() => {
 
 onMounted(() => {
     Debug.setDebugModule("add-section-modal", this);
+
+    nameInput.value?.focus();
 });
 
 watch(name, () => {
@@ -64,6 +69,8 @@ const save = () => {
     section.backgroundColor = color.value.backgroundColor;
     section.color = color.value.color;
 
+    ensureSectionMembers(section);
+
     emit("changed", section);
     emit("close");
 }
@@ -75,7 +82,7 @@ const save = () => {
         <form class="input-form" action="javascript:void(0);">
             <label for="name">Name</label>
             <input name="name" v-model="name" placeholder="Section name" class="form-control" autocomplete="on"
-                type="text" />
+                type="text" ref="nameInput" />
 
             <span title="Invalid Name">
                 <font-awesome-icon v-show="showNameError" icon="exclamation-triangle" />

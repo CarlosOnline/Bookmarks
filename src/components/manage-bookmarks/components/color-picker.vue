@@ -147,4 +147,13 @@ onMounted(() => {
         width: 100%;
     }
 }
+
+.color-option:focus {
+    border: 2px solid gainsboro;
+}
+
+span:focus,
+li:focus {
+    border: 2px solid red;
+}
 </style>

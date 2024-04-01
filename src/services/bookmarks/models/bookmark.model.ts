@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 export const MinDate = new Date(-8640000000000000);
 export const MinTimeStamp = MinDate.getTime();
 
@@ -16,3 +18,13 @@ export const DefaultBookmark: Bookmark = {
   color: "",
   timestamp: MinTimeStamp,
 };
+
+export function ensureBookmarkMembers(bookmark: Bookmark) {
+  if (!bookmark.id) {
+    bookmark.id = uuidv4();
+  }
+
+  if (!bookmark.timestamp) {
+    bookmark.timestamp = MinTimeStamp;
+  }
+}

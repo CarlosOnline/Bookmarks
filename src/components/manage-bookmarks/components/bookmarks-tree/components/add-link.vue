@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeMount, onMounted, ref, watch } from 'vue';
-import { Link, Section } from '@/services/bookmarks';
+import { Link, Section, ensureLinkMembers } from '@/services/bookmarks';
 import { ColorInfo } from '@/services/colors';
 import ColorPicker from "../../color-picker.vue";
 
@@ -18,7 +18,10 @@ const emit = defineEmits<{
 const previousLink = ref<Link>();
 
 const showNameError = ref(false);
+
 const showUrlError = ref(false);
+
+const nameInput = ref(<any>null);
 
 const name = ref<string>(props.link.name || "")
 const href = ref<string>(props.link.href || "")
@@ -40,6 +43,8 @@ onBeforeMount(() => {
 
 onMounted(() => {
     Debug.setDebugModule("add-link-modal", this);
+
+    nameInput.value?.focus();
 });
 
 watch(name, () => {
@@ -77,6 +82,8 @@ const save = () => {
     link.backgroundColor = color.value.backgroundColor;
     link.color = color.value.color;
 
+    ensureLinkMembers(link);
+
     emit("changed", props.section, link);
     emit("close");
 }
@@ -88,7 +95,7 @@ const save = () => {
         <form class="input-form" action="javascript:void(0);">
             <label for="name">Name</label>
             <input name="name" v-model="name" placeholder="Bookmark name" class="form-control" autocomplete="on"
-                type="text" />
+                type="text" ref="nameInput" />
 
             <span title="Invalid Name">
                 <font-awesome-icon v-show="showNameError" icon="exclamation-triangle" />
