@@ -4,7 +4,6 @@ import { DefaultLink, Link, Section } from '@/services/bookmarks';
 import Modal from '@/components/modal.vue';
 import AddLink from './add-link.vue'
 import AddSection from './add-section.vue'
-import SectionViewer from '../../../../section-viewer.vue';
 import { getBookmarkBackgroundColor, getBookmarkColor } from '@/services/colors';
 
 const props = defineProps<{
