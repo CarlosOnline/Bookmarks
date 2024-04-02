@@ -81,6 +81,12 @@ const color = computed(() => getBookmarkBackgroundColor(props.section, null));
         margin-bottom: 0.5rem;
         padding-left: 2rem !important;
         padding-right: 2rem !important;
+
+        .section-viewer {
+            h3 {
+                font-size: var(--section-font-size) !important;
+            }
+        }
     }
 }
 
@@ -104,3 +110,5 @@ const color = computed(() => getBookmarkBackgroundColor(props.section, null));
     visibility: visible;
 }
 </style>
+
+<style></style>

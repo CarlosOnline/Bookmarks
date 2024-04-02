@@ -39,7 +39,7 @@ const color = computed(() => getBookmarkBackgroundColor(props.section, null));
     border-radius: 0.5rem;
 
     h3 {
-        font-size: 1.5rem !important;
+        font-size: var(--section-font-size) !important;
         min-width: 8rem;
     }
 }

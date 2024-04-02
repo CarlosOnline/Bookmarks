@@ -107,6 +107,8 @@ const save = () => {
 </template>
 
 <style scoped>
+@import "@/colors.css";
+
 .add-section-modal {
     margin: 2rem;
 

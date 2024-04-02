@@ -103,7 +103,7 @@ const importBookmarks = () => {
 </template>
 
 <style scoped>
-@import "./colors.css";
+@import "@/colors.css";
 
 .app-container {
   .header {

@@ -86,6 +86,8 @@ const filterLinks = (links: Link[], search: string) => {
 
 <style scoped>
 .bookmarks-page {
+    margin-top: 1rem;
+
     .link-wrapper {
         display: flex;
         flex-wrap: wrap;

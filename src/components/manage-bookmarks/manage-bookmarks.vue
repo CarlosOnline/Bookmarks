@@ -28,6 +28,7 @@ const resetLinks = () => {
         </div>
     </div>
 </template>
+
 <style scoped>
 .manage-bookmarks {
     margin-top: 0.5rem;
