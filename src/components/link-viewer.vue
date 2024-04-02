@@ -51,6 +51,7 @@ const onClick = () => {
         padding-left: 1rem;
         padding-right: 1rem;
         margin-left: 0;
+        font-size: var(--link-font-size);
     }
 }
 

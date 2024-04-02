@@ -127,6 +127,8 @@ const save = () => {
 </template>
 
 <style scoped>
+@import "@/colors.css";
+
 .add-link-modal {
     margin: 2rem;
 

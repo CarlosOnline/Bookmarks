@@ -138,12 +138,12 @@ const onSectionDragged = (droppedItem: TreeViewItem, dropHost: TreeViewItem) => 
 
     <div class="header">
         <button class="btn btn-link header-button" @click="addModal.show" title="Add Section">
-            <font-awesome-icon icon="plus" size="1x" />
+            <font-awesome-icon icon="plus" size="2x" />
             <span>Add Section</span>
         </button>
 
         <button class="btn btn-link header-button" @click="instructionsModal.show">
-            <font-awesome-icon icon="question" size="1x" />
+            <font-awesome-icon icon="question" size="2x" />
             <span>Instructions</span>
         </button>
 
@@ -184,10 +184,16 @@ const onSectionDragged = (droppedItem: TreeViewItem, dropHost: TreeViewItem) => 
     grid-template-columns: auto auto 1fr;
     grid-column-gap: 15rem;
     margin: 0;
-    margin-bottom: 0.5rem;
+    margin-bottom: -0.75rem;
 
     .btn {
-        font-size: 1.5rem;
+        font-size: var(--btn-font-size);
+    }
+
+    button {
+        span {
+            font-size: var(--section-font-size) !important;
+        }
     }
 
     .header-button {
