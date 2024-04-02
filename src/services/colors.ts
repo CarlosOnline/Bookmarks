@@ -10,29 +10,36 @@ export interface ColorInfo {
 }
 
 export const BookmarkColors: Record<string, ColorInfo> = {
-  ultramarineGreen: { backgroundColor: "#006B54", color: "white" },
+  indigo: { backgroundColor: "#6610f2", color: "white" },
+  blueIzis: { backgroundColor: "#5B5EA6", color: "white" },
+
+  classicBlue: { backgroundColor: "#34568B", color: "white" },
+  blue: { backgroundColor: "#007bff", color: "white" },
   frenchBlue: { backgroundColor: "#0072b5", color: "white" },
   mosaicBlue: { backgroundColor: "#00758F", color: "white" },
-  blue: { backgroundColor: "#007bff", color: "white" },
-  mint: { backgroundColor: "#00a170", color: "white" },
-  green: { backgroundColor: "#28a745", color: "white" },
-  darkGray: { backgroundColor: "#2c3e50", color: "white" },
-  blackGray: { backgroundColor: "#343a40", color: "white" },
-  classicBlue: { backgroundColor: "#34568B", color: "white" },
   primary: { backgroundColor: "#428bca", color: "white" },
   turquoise: { backgroundColor: "#45B8AC", color: "white" },
-  blueIzis: { backgroundColor: "#5B5EA6", color: "white" },
-  indigo: { backgroundColor: "#6610f2", color: "white" },
-  firedBrick: { backgroundColor: "#6A2E2A", color: "white" },
-  magentaPurple: { backgroundColor: "#6C244C", color: "white" },
-  secondary: { backgroundColor: "#6c757d", color: "white" },
+
+  ultramarineGreen: { backgroundColor: "#006B54", color: "white" },
+  mint: { backgroundColor: "#00a170", color: "white" },
+  green: { backgroundColor: "#28a745", color: "white" },
+
+  saffron: { backgroundColor: "#FFA500", color: "black" },
+
+  livingCoral: { backgroundColor: "#FF6F61", color: "white" },
+  orangePeel: { backgroundColor: "#FA7A35", color: "white" },
+  tangerineTango: { backgroundColor: "#DD4124", color: "white" },
+
+  pink: { backgroundColor: "#e83e8c", color: "white" },
+
   chiliPepper: { backgroundColor: "#9B2335", color: "white" },
   trueRed: { backgroundColor: "#BC243C", color: "white" },
-  tangerineTango: { backgroundColor: "#DD4124", color: "white" },
-  pink: { backgroundColor: "#e83e8c", color: "white" },
-  orangePeel: { backgroundColor: "#FA7A35", color: "white" },
-  livingCoral: { backgroundColor: "#FF6F61", color: "white" },
-  saffron: { backgroundColor: "#FFA500", color: "black" },
+  firedBrick: { backgroundColor: "#6A2E2A", color: "white" },
+  magentaPurple: { backgroundColor: "#6C244C", color: "white" },
+
+  secondary: { backgroundColor: "#6c757d", color: "white" },
+  darkGray: { backgroundColor: "#2c3e50", color: "white" },
+  blackGray: { backgroundColor: "#343a40", color: "white" },
 };
 
 type Rgba = {
@@ -49,7 +56,7 @@ export type ColorInfoElement = {
   color: string;
 };
 
-const BookmarkColorInfoArray = Object.keys(BookmarkColors).map((key) => {
+export const BookmarkColorInfoArray = Object.keys(BookmarkColors).map((key) => {
   return {
     name: key,
     backgroundColor: BookmarkColors[key].backgroundColor,

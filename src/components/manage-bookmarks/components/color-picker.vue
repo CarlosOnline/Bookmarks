@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
 import { Bookmark } from '@/services/bookmarks';
-import { BookmarkColors, ColorInfo, DefaultColorName } from '@/services/colors';
+import { BookmarkColors, ColorInfo, DefaultColor, DefaultColorName } from '@/services/colors';
 
 const props = defineProps<{
     section: Bookmark,
@@ -25,6 +25,9 @@ const defaultColor = <ColorInfo>colors.find(
 );
 
 const findColor = (color: string, backgroundColor: string) => {
+    color = color || DefaultColor.color;
+    backgroundColor = backgroundColor || DefaultColor.backgroundColor;
+
     if (!color || !backgroundColor) {
         return null;
     }
