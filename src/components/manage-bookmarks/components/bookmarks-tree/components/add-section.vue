@@ -33,10 +33,6 @@ const disabled = computed(() => {
 
 onBeforeMount(() => {
     model.value = Object.assign({}, props.section);
-    color.value = {
-        backgroundColor: props.section.backgroundColor,
-        color: props.section.color,
-    };
 });
 
 onMounted(() => {

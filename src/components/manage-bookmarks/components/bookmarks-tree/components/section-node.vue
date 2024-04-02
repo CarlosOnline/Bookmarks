@@ -47,7 +47,6 @@ const color = computed(() => getBookmarkBackgroundColor(props.section, null));
         <div class="section-btn btn btn-outline-info" :style="{
             backgroundColor: color,
             borderColor: color,
-            color: backgroundColor + ' !important',
         }">
             <div class="section-viewer">
                 <h3 :style="{
