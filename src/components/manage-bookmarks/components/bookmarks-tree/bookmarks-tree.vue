@@ -138,12 +138,12 @@ const onSectionDragged = (droppedItem: TreeViewItem, dropHost: TreeViewItem) => 
 
     <div class="header">
         <button class="btn btn-link header-button" @click="addModal.show" title="Add Section">
-            <font-awesome-icon icon="plus" size="2x" />
+            <font-awesome-icon icon="plus" size="1x" />
             <span>Add Section</span>
         </button>
 
         <button class="btn btn-link header-button" @click="instructionsModal.show">
-            <font-awesome-icon icon="question" size="2x" />
+            <font-awesome-icon icon="question" size="1x" />
             <span>Instructions</span>
         </button>
 

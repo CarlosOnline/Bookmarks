@@ -6,9 +6,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --button-font-size: 1.5rem;
-  --section-font-size: 1.5rem;
-  --link-font-size: 1.25rem;
+  --button-font-size: 1rem;
+  --section-font-size: 1rem;
+  --link-font-size: 1rem;
 }
 
 body {
