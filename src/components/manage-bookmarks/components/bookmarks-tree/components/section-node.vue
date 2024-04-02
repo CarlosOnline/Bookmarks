@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { DefaultLink, Link, Section } from '@/services/bookmarks';
 import Modal from '@/components/modal.vue';
 import AddLink from './add-link.vue'
 import AddSection from './add-section.vue'
 import SectionViewer from '../../../../section-viewer.vue';
+import { getBookmarkBackgroundColor, getBookmarkColor } from '@/services/colors';
 
 const props = defineProps<{
     section: Section,
@@ -20,6 +21,11 @@ const link = ref<Link>({ ...DefaultLink });
 
 const addModal = ref<typeof Modal>(<any>null);
 const editModal = ref<typeof Modal>(<any>null);
+
+const backgroundColor = computed(() => getBookmarkColor(props.section, null));
+
+const color = computed(() => getBookmarkBackgroundColor(props.section, null));
+
 </script>
 
 <template>
@@ -38,8 +44,17 @@ const editModal = ref<typeof Modal>(<any>null);
     </Modal>
 
     <div class="section-form">
-        <div>
-            <SectionViewer :section="props.section" @click="editModal?.show" />
+        <div class="section-btn btn btn-outline-info" :style="{
+            backgroundColor: color,
+            borderColor: color,
+            color: backgroundColor + ' !important',
+        }">
+            <div class="section-viewer">
+                <h3 :style="{
+            color: backgroundColor + ' !important',
+        }" @click="editModal?.show">{{ section.name }}</h3>
+            </div>
+
         </div>
 
         <div class="edit-section-btn">
@@ -62,6 +77,13 @@ const editModal = ref<typeof Modal>(<any>null);
 .section-form {
     display: flex;
     flex-direction: row;
+
+    .section-btn {
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+        padding-left: 2rem !important;
+        padding-right: 2rem !important;
+    }
 }
 
 .section-form .edit-section-btn {

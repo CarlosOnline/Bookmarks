@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import { SortedBookmarkColors } from "@/services/colors";
+import { BookmarkColorInfoArray } from "@/services/colors";
 
-const colors = ref(SortedBookmarkColors);
+const colors = ref(BookmarkColorInfoArray);
 
 const colorsJson = computed(() => {
     const results: Record<string, any> = {};
-    SortedBookmarkColors.forEach(item => {
+    BookmarkColorInfoArray.forEach(item => {
         results[item.name] = { backgroundColor: item.backgroundColor, color: item.color };
     });
     return JSON.stringify(results).replace(/},/g, "},\r\n");
