@@ -70,7 +70,7 @@ function setDebugModule(
   }
 
   windowObj[name] = value;
-  Debug.log("setDebugModule", name, value?.toString().substr(0, 20));
+  //Debug.log("setDebugModule", name, value?.toString().substr(0, 20));
 }
 
 if (debugMode) {
