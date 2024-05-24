@@ -44,7 +44,7 @@ const findColor = (color: string, backgroundColor: string) => {
 const colorValue = ref<ColorInfo>(defaultColor);
 
 watch(props.link, () => {
-    if (props.link) {
+    if (props.link.color || props.link.backgroundColor) {
         const found = findColor(props.link.color, props.link.backgroundColor);
         if (found) {
             colorValue.value = found;

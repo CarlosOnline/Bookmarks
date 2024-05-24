@@ -1,5 +1,5 @@
-import DebugModule from "./support/debug";
-DebugModule.ensureCalled();
+import { initializeDebugModule } from "./support/debug";
+initializeDebugModule();
 
 import { createApp, nextTick } from "vue";
 

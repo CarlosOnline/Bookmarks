@@ -2,107 +2,92 @@
 /*eslint @typescript-eslint/no-explicit-any: ["off"]*/
 /*eslint no-console: "off"*/
 
-Debug.debugMode = true;
-Debug.verboseMode = false;
+const DefaultDebug = {
+  debugMode: false,
+  verboseMode: false,
+  log: () => {},
+  verbose: () => {},
+  debug: () => {},
+  error: () => {},
+  dumpCallStack: () => {},
+  setDebugModule: (_key: string, _value: any, _item?: number) => {},
+};
+
+let Debug = { ...DefaultDebug, ...console };
+
+const debugMode =
+  import.meta.env.VITE_DEBUG_MODE == "true" ||
+  import.meta.env.VITE_DEBUG_MODE == "1";
+
+const verboseMode =
+  import.meta.env.VITE_VERBOSE_MODE == "true" ||
+  import.meta.env.VITE_VERBOSE_MODE == "1";
 
 function capitalize(value: string) {
   return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
-export default class DebugModule {
-  static initialized = false;
+function dumpCallStack() {
+  const stack = new Error().stack;
+  Debug.log("PRINTING CALL STACK");
+  Debug.log(stack);
+}
 
-  static ensureCalled() {}
+function setDebugModule(
+  key: string,
+  value: any,
+  item: string | number = undefined
+) {
+  const windowObj = window as any;
 
-  static initializeDebug() {
-    if (!Debug.debugMode || false) return;
+  let name = key;
+  value = value || null;
 
-    if (console && console.log) {
-      try {
-        Debug.log = console.log.bind(window.console);
-      } catch (err) {
-        Debug.log = console.log;
-      }
-      try {
-        Debug.log("Debug Mode");
-      } catch (err) {
-        Debug.log = () => {};
-      }
+  const parts = key.replace(/([^a-z0-9-]+)/gi, "").split("-");
+  const capitalized = parts.map((item) => capitalize(item)).join("");
 
-      try {
-        Debug.debug = console.debug.bind(window.console);
-      } catch (err) {
-        Debug.debug = console.debug;
-      }
+  if (item) {
+    name = "g_" + capitalized;
+    if (!windowObj[name]) windowObj[name] = {};
 
-      if (!Debug.debug) Debug.debug = Debug.log;
-    }
-
-    if (console && console.error) {
-      try {
-        Debug.error = console.error.bind(window.console);
-      } catch (err) {
-        Debug.error = console.error;
-      }
-      try {
-        // Debug.error("");
-      } catch (err) {
-        Debug.error = () => {};
-      }
-    }
-    if (Debug.log) {
-      Debug.dumpCallStack = () => {
-        const stack = new Error().stack;
-        Debug.log("PRINTING CALL STACK");
-        Debug.log(stack);
-      };
-    }
-
-    if (!Debug.log) Debug.log = () => {};
-    if (!Debug.error) Debug.error = () => {};
-    if (!Debug.dumpCallStack) Debug.dumpCallStack = () => {};
-
-    Debug.verbose = Debug.verboseMode ? Debug.log : () => {};
-
-    Debug.setDebugModule = function (key, value, item) {
-      const windowObj = window as any;
-
-      let name = key;
-      value = value || null;
-
-      const parts = key.replace(/([^a-z0-9-]+)/gi, "").split("-");
-      const capitalized = parts.map((item) => capitalize(item)).join("");
-
-      if (item) {
-        name = "g_" + capitalized;
-        if (!windowObj[name]) windowObj[name] = {};
-
-        windowObj[name][item] = value;
-        return;
-      }
-
-      switch (key.toLowerCase()) {
-        case "app":
-          name = "g_App";
-          break;
-        case "serverdata":
-          name = "g_ServerData";
-          break;
-        case "wizard":
-          name = "g_Wizard";
-          break;
-        default:
-          name = "g_" + capitalized;
-          break;
-      }
-
-      windowObj[name] = value;
-      //Debug.log('setDebugModule', name, value);
-    };
+    windowObj[name][item] = value;
+    return;
   }
+
+  switch (key.toLowerCase()) {
+    case "app":
+      name = "g_App";
+      break;
+    case "serverdata":
+      name = "g_ServerData";
+      break;
+    case "wizard":
+      name = "g_Wizard";
+      break;
+    default:
+      name = "g_" + capitalized;
+      break;
+  }
+
+  windowObj[name] = value;
+  //Debug.log("setDebugModule", name, value?.toString().substr(0, 20));
 }
 
-if (!DebugModule.initialized) {
-  DebugModule.initialized = true;
-  DebugModule.initializeDebug();
+if (debugMode) {
+  Debug = {
+    ...Debug,
+    ...{
+      debugMode,
+      verboseMode,
+      dumpCallStack,
+      setDebugModule,
+    },
+    ...console,
+  };
 }
+
+const windowObj = window as any;
+windowObj.Debug = Debug;
+console.log("Debug", Debug);
+
+export function initializeDebugModule() {}
