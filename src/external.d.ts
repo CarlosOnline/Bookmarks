@@ -14,7 +14,6 @@ interface DebugModule {
   debug: Function;
   error: Function;
   dumpCallStack: Function;
-  setVue: (vue: Vue) => void;
   setDebugModule: (key: string, value: any, item?: number) => void;
 }
 
