@@ -2,10 +2,11 @@
 Bookmarks application for managing browser bookmarks.  
 Created by [Carlos Gomes](mailto:carlos.bear@gmail.com).
 
+
 # Repository:
 
-| Item      | Value |
-| ----------- | ----------- |
+| Item            | Value |
+| --------------- | ----------- |
 | Repository:     | https://github.com/CarlosOnline/bookmarks |
 | Url:            | https://orange-pebble-0f131a91e.3.azurestaticapps.net |
 | Url:            | https://gentle-grass-0b1856c03.2.azurestaticapps.net/#/ |
@@ -46,6 +47,7 @@ yarn test:e2e
 ```
 
 ### Lints and fixes files
+Lint not currently working.  yarn build seems to do the linting.
 ```
 yarn lint
 ```
