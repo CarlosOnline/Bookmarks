@@ -1,4 +1,4 @@
-import { library } from "@fortawesome/fontawesome-svg-core";
+import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faBars,
   faBug,
@@ -10,6 +10,7 @@ import {
   faFileExport,
   faFileImport,
   faFolder,
+  faFolderOpen,
   faHome,
   faLink,
   faPlus,
@@ -20,7 +21,7 @@ import {
   faSpinner,
   faThumbtack,
   faTrash,
-} from "@fortawesome/free-solid-svg-icons";
+} from '@fortawesome/free-solid-svg-icons';
 
 library.add(
   faBars,
@@ -32,6 +33,7 @@ library.add(
   faFileExcel,
   faFileExport,
   faFileImport,
+  faFolderOpen,
   faFolder,
   faHome,
   faLink,
@@ -42,7 +44,7 @@ library.add(
   faShareSquare,
   faSpinner,
   faThumbtack,
-  faTrash
+  faTrash,
 );
 
 const unUsed = {};

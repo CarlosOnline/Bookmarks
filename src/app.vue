@@ -1,17 +1,30 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { ModalsContainer } from 'vue-final-modal'
-import { useRouter } from 'vue-router';
+import { ModalsContainer } from 'vue-final-modal';
+import { useRoute, useRouter } from 'vue-router';
 import { $bookmarksStore } from '@/services/bookmarks';
 import { useToast } from 'vue-toast-notification';
+import { watch } from 'vue';
 const router = useRouter();
+const route = useRoute();
 
-const exportLink = ref<string>("");
+const exportLink = ref<string>('');
 const helpLink = ref(`mailto:carlos.bear@gmail.com?subject=Bookmarks Help`);
 const file = ref(<any>null);
+const routePath = route.path;
+console.log('Current route path:', routePath);
+const manageMode = ref<boolean>(route.path === '/manage');
+
+watch(
+  () => route.path,
+  (newPath) => {
+    manageMode.value = newPath === '/manage';
+  },
+  { immediate: true },
+);
 
 const toggleHomePage = () => {
-  router.push(document.location.pathname == "/manage" ? '/' : '/manage');
+  router.push(document.location.pathname == '/manage' ? '/' : '/manage');
 };
 
 const exportToJson = () => {
@@ -28,12 +41,12 @@ const exportToJson = () => {
 
         return value;
       },
-      3
-    )
+      3,
+    ),
   );
-  const exportContent = "data:text/json;charset=utf-8," + json;
+  const exportContent = 'data:text/json;charset=utf-8,' + json;
   exportLink.value = exportContent;
-}
+};
 
 const importBookmarks = () => {
   if (file?.value.files?.length == 0) return;
@@ -45,19 +58,28 @@ const importBookmarks = () => {
 
     const contents = response.target.result;
     const [result, message] = $bookmarksStore.importFromJson(
-      contents as string
+      contents as string,
     );
 
     const toaster = useToast();
     if (result) {
-      toaster.success("Imported bookmarks");
+      toaster.success('Imported bookmarks');
     } else {
       toaster.error(message);
     }
   };
   reader.readAsText(fileData);
-}
+};
 
+const importBookmarksClick = () => {
+  if (
+    confirm(
+      'Are you sure you want to import bookmarks?\r\n\r\nThis will overwrite your current bookmarks.',
+    )
+  ) {
+    file.value.click();
+  }
+};
 </script>
 
 <template>
@@ -72,23 +94,53 @@ const importBookmarks = () => {
       <div id="filter" class="search-filter"></div>
 
       <div class="header-buttons">
-        <router-link to="/manage" class="btn btn-link">
-          <font-awesome-icon icon="edit" size="2x" />
-        </router-link>
+        <template v-if="!manageMode">
+          <router-link to="/manage" class="btn btn-link">
+            <font-awesome-icon icon="edit" size="2x" />
+          </router-link>
+        </template>
+        <template v-else>
+          <router-link to="/" class="btn btn-link">
+            <font-awesome-icon icon="house" size="2x" />
+          </router-link>
+        </template>
 
-        <a v-on:mousedown="exportToJson()" :href="exportLink" class="btn btn-default" download="bookmarks.json"
-          id="export-to-json" title="Export bookmarks" ref="export">
-          <font-awesome-icon icon="file-export" size="2x" />
+        <a
+          v-on:mousedown="exportToJson()"
+          :href="exportLink"
+          class="btn btn-default"
+          download="bookmarks.json"
+          id="export-to-json"
+          title="Export bookmarks"
+          ref="export"
+        >
+          <font-awesome-icon icon="floppy-disk" size="2x" />
         </a>
 
         <div>
-          <input type="file" ref="file" style="display: none" @change="importBookmarks" />
-          <button class="btn btn-link" @click="file.click()" title="Import bookmarks">
-            <font-awesome-icon icon="file-import" size="2x" />
+          <input
+            type="file"
+            ref="file"
+            style="display: none"
+            @change="importBookmarks"
+          />
+          <button
+            class="btn btn-link"
+            @click="importBookmarksClick"
+            title="Import bookmarks"
+            style="color: #66aac8 !important"
+          >
+            <font-awesome-icon icon="folder-open" size="2x" />
           </button>
         </div>
 
-        <a type="button" class="btn btn-link" :href="helpLink" title="Contact Support" target="_blank">
+        <a
+          type="button"
+          class="btn btn-link"
+          :href="helpLink"
+          title="Contact Support"
+          target="_blank"
+        >
           <font-awesome-icon icon="question" size="2x" />
         </a>
       </div>
@@ -103,7 +155,7 @@ const importBookmarks = () => {
 </template>
 
 <style scoped>
-@import "@/colors.css";
+@import '@/colors.css';
 
 .app-container {
   .header {
