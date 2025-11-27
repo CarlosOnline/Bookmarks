@@ -1,4 +1,4 @@
-@import "./colors.css";
+@import './colors.css';
 
 :root {
   font-synthesis: none;
@@ -9,6 +9,7 @@
   --button-font-size: 1rem;
   --section-font-size: 1rem;
   --link-font-size: 1rem;
+  --default-color: #0072c6;
 }
 
 body {
@@ -35,19 +36,19 @@ body {
   margin-right: 1rem;
   width: 100%;
   height: 100%;
-  font-family: "Segoe UI Light", "Segoe UI", "Segoe", Tahoma, Helvetica, Arial,
+  font-family: 'Segoe UI Light', 'Segoe UI', 'Segoe', Tahoma, Helvetica, Arial,
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 a {
-  color: #0072c6 !important;
+  color: var(--default-color) !important;
   text-decoration: none;
 }
 
 .btn-link {
-  color: #0072c6 !important;
+  color: var(--default-color) !important;
   text-decoration: none;
   font-weight: normal !important;
 }
@@ -60,7 +61,7 @@ h1,
 h2,
 h3,
 h4 {
-  color: #0072c6;
+  color: var(--default-color);
   margin: 0;
 }
 
